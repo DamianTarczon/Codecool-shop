@@ -31,6 +31,22 @@ namespace Codecool.CodecoolShop.Controllers
             return View(products.ToList());
         }
 
+        public IActionResult Tablets()
+        {
+            var products = ProductService.GetProductsForCategory(1);
+            return View(products.ToList());
+        }
+        public IActionResult Smartwatch()
+        {
+            var products = ProductService.GetProductsForCategory(2);
+            return View(products.ToList());
+        }
+        public IActionResult Smartphones()
+        {
+            var products = ProductService.GetProductsForCategory(3);
+            return View(products.ToList());
+        }
+
         public IActionResult Privacy()
         {
             return View();
