@@ -22,31 +22,20 @@ namespace Codecool.CodecoolShop.Controllers
             _logger = logger;
             ProductService = new ProductService(
                 ProductDaoMemory.GetInstance(),
-                ProductCategoryDaoMemory.GetInstance());
+                ProductCategoryDaoMemory.GetInstance(),
+                SupplierDaoMemory.GetInstance());
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int id = 1, string category = "category")
         {
-            var products = ProductService.GetProductsForCategory(1);
-            return View(products.ToList());
+            if (category != "category")
+            {
+                var productsBySupplier = ProductService.GetProductsBySupplier(id);
+                return View(productsBySupplier.ToList());
+            }
+            var productsByCategory = ProductService.GetProductsForCategory(id);
+            return View(productsByCategory.ToList());
         }
-
-        public IActionResult Tablets()
-        {
-            var products = ProductService.GetProductsForCategory(1);
-            return View(products.ToList());
-        }
-        public IActionResult Smartwatch()
-        {
-            var products = ProductService.GetProductsForCategory(2);
-            return View(products.ToList());
-        }
-        public IActionResult Smartphones()
-        {
-            var products = ProductService.GetProductsForCategory(3);
-            return View(products.ToList());
-        }
-
         public IActionResult Privacy()
         {
             return View();
