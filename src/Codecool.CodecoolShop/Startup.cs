@@ -89,8 +89,8 @@ namespace Codecool.CodecoolShop
             productDataStore.Add(new Product { Name = "iPhone 10", DefaultPrice = 500.9m, Currency = "USD", Description = "Fantasic mobile phone", ProductCategory = smartphone, Supplier = apple });
             productDataStore.Add(new Product { Name = "iPhone 8", DefaultPrice = 500.9m, Currency = "USD", Description = "Good enough", ProductCategory = smartphone, Supplier = apple });
             productDataStore.Add(new Product { Name = "Xiaomi Redmi 2", DefaultPrice = 50.9m, Currency = "USD", Description = "Fantasic smartwatch with good price", ProductCategory = smartphone, Supplier = xiaomi });
-            productDataStore.Add(new Product { Name = "Garmin Phoenix", DefaultPrice = 60.9m, Currency = "USD", Description = "Smartwatch with a lot of functions", ProductCategory = smartwatch, Supplier = garmin });
-            productDataStore.Add(new Product { Name = "Xiaomi miBand", DefaultPrice = 70.9m, Currency = "USD", Description = "The best smartwatch", ProductCategory = smartwatch, Supplier = xiaomi });
+            productDataStore.Add(new Product { Name = "Garmin Fenix 5", DefaultPrice = 60.9m, Currency = "USD", Description = "Smartwatch with a lot of functions", ProductCategory = smartwatch, Supplier = garmin });
+            productDataStore.Add(new Product { Name = "Xiaomi Mi Band 6", DefaultPrice = 70.9m, Currency = "USD", Description = "The best smartwatch", ProductCategory = smartwatch, Supplier = xiaomi });
 
         }
     }

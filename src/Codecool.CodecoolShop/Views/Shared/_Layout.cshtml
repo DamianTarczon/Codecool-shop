@@ -31,9 +31,19 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            <a asp-controller="Product" asp-action="Smartwatch">Smartwatches</a>
-            <a asp-controller="Product" asp-action="Tablets">Tablets</a>
-            <a asp-controller="Product" asp-action="Smartphones">Smartphones</a>
+            <div class="sidenav">
+                <p>Category:</p>
+                <a asp-controller="Product" asp-action="Index" asp-route-id="2" asp-route-category="category">Smartwatches</a>
+                <a asp-controller="Product" asp-action="Index" asp-route-id="1" asp-route-category="category">Tablets</a>
+                <a asp-controller="Product" asp-action="Index" asp-route-id="3" asp-route-category="category">Smartphones</a>
+                <br />
+                <p>Supplier:</p>
+                <a asp-controller="Product" asp-action="Index" asp-route-id="1" asp-route-category="supplier">Amazon</a>
+                <a asp-controller="Product" asp-action="Index" asp-route-id="2" asp-route-category="supplier">Apple</a>
+                <a asp-controller="Product" asp-action="Index" asp-route-id="3" asp-route-category="supplier">Xiaomi</a>
+                <a asp-controller="Product" asp-action="Index" asp-route-id="4" asp-route-category="supplier">Garmin</a>
+                <a asp-controller="Product" asp-action="Index" asp-route-id="5" asp-route-category="supplier">Lenovo</a>
+            </div>
             @RenderBody()
         </main>
     </div>
