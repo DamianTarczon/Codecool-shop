@@ -11,10 +11,10 @@ namespace Codecool.CodecoolShop.Services
         private readonly  ICartDao _cartDao;
         private readonly ProductService _productService;
 
-        public CartService(ICartDao cartDao, IProductDao productDao, IProductCategoryDao productCategoryDao)
+        public CartService(ICartDao cartDao, IProductDao productDao, IProductCategoryDao productCategoryDao, ISupplierDao supplierDao)
         {
             _cartDao = cartDao;
-            _productService = new ProductService(productDao, productCategoryDao);
+            _productService = new ProductService(productDao, productCategoryDao, supplierDao);
 
         }
 
