@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model Dictionary<Codecool.CodecoolShop.Models.Product, int>
+
+@foreach (var element in Model)
+{
+    <h2>@element.Key</h2>
+    <h2>@element.Value</h2>
+}

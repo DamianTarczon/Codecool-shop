@@ -12,7 +12,8 @@ namespace Codecool.CodecoolShop.Daos.Implementations
         {
         }
 
-        public static CartDao GetInstance()
+
+        private static CartDao GetInstance()
         {
             if (instance == null)
             {
@@ -20,6 +21,17 @@ namespace Codecool.CodecoolShop.Daos.Implementations
             }
 
             return instance;
+        }
+
+        CartDao ICartDao.GetInstance()
+        {
+            var cartDao = CartDao.GetInstance();
+            return cartDao;
+        }
+
+        public Dictionary<Product,int> GetAll()
+        {
+            return _cart.ListOfProducts;
         }
 
         public void AddProduct(Product product)
