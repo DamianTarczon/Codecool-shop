@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Codecool.CodecoolShop.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Codecool.CodecoolShop.Controllers
 {
@@ -9,10 +10,24 @@ namespace Codecool.CodecoolShop.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult CreditCardDetails()
         {
             return View();
 
+        }
+
+        [HttpPost]
+        public ViewResult CreditCardDetails(CreditCard creditCard)
+        {
+            if (ModelState.IsValid)
+            {
+                return View();
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }
