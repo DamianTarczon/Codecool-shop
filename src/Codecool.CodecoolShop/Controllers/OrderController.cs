@@ -11,11 +11,19 @@ namespace Codecool.CodecoolShop.Controllers
         private Order _order;
         private UserData _validUserData;
         private Cart _cart;
-        private OrderService _orderService;
+        private OrderService OrderService { get; set; }
+        private CartService CartService { get; set; }
 
         public OrderController()
         {
-            _orderService = new OrderService(OrderDaoMemory.GetInstance());
+            CartService = new CartService(
+                CartDao.GetInstance(),
+                ProductDaoMemory.GetInstance(),
+                ProductCategoryDaoMemory.GetInstance(),
+                SupplierDaoMemory.GetInstance());
+            OrderService = new OrderService(OrderDaoMemory.GetInstance());
+            _order = new Order(DateTime.Now);
+            _order.OrderedProducts = CartService.GetCart();
         }
         public IActionResult Index()
         {
@@ -24,18 +32,18 @@ namespace Codecool.CodecoolShop.Controllers
 
 
         [HttpGet]
-        public IActionResult OrderDetails(Order order)
+        public IActionResult OrderDetails(int orderId)
         {
             return View(order);
         }
 
         [HttpPost]
-        public ViewResult CreditCardDetails(CreditCard creditCard)
+        public IActionResult MakePayment(CreditCard creditCard)
         {
             if (ModelState.IsValid)
             {
-                _orderService.AddOrder(_order);
-                return View();
+                OrderService.AddOrder(_order);
+                return RedirectToAction("OrderDetails", "Order", new {orderId = _order.Id});
             }
             else
             {
@@ -43,7 +51,7 @@ namespace Codecool.CodecoolShop.Controllers
             }
         }
 
-        public ViewResult MakePayment()
+        public IActionResult MakePayment()
         {
             return View();
         }
@@ -56,11 +64,12 @@ namespace Codecool.CodecoolShop.Controllers
         }
 
         [HttpPost]
-        public ViewResult UserDataDetails(UserData userData)
+        public IActionResult UserDataDetails(UserData userData)
         {
             if (ModelState.IsValid)
             {
-                return View(userData);
+                _order.UserData = userData;
+                return RedirectToAction("MakePayment", "Order");
             }
             else
             {
