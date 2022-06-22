@@ -3,9 +3,26 @@
 }
 
 @model Dictionary<Codecool.CodecoolShop.Models.Product, int>
+@{
+    decimal totalPrice = 0;
+    foreach (var el in Model)
+    {
+        totalPrice += el.Key.DefaultPrice * el.Value;
+    }
+}
+
+<button class="deleteAll-btn" type="button" onclick="location.href = '@Url.Action("Index", "Cart", new {buttonType = "deleteAll"})'">Clear all</button>
 
 @foreach (var element in Model)
 {
+    decimal productPrice = element.Key.DefaultPrice * element.Value;
+    <button class="delete-btn" type="button" onclick="location.href = '@Url.Action("Index", "Cart", new {buttonType = "delete", productId = element.Key.Id})'">x</button>
     <h2>@element.Key.Name</h2>
+    <button class="plus-btn" type="button" onclick="location.href = '@Url.Action("Index", "Cart", new {buttonType = "increase", productId = element.Key.Id})'">+</button>                         
     <h2>@element.Value</h2>
+    <button class="minus-btn" type="button" onclick="location.href = '@Url.Action("Index", "Cart", new {buttonType = "decrease", productId = element.Key.Id})'">-</button>
+    <div class="total-price">@productPrice</div>
 }
+
+<div class="total-price"><span>Total price to pay: </span>@totalPrice</div>
+@*<button class="confirm-btn" type="button" onclick="location.href = '@Url.Action("Order", "UserDataDetails")'">Confirm purchase</button>*@

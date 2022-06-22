@@ -7,6 +7,7 @@ namespace Codecool.CodecoolShop.Daos.Implementations
     {
         private Cart _data = new Cart();
         private static CartDao _instance = null;
+        
 
         public static CartDao GetInstance()
         {
@@ -24,7 +25,7 @@ namespace Codecool.CodecoolShop.Daos.Implementations
             return _data.ListOfProducts;
         }
 
-        public void AddProduct(Product product)
+        public void IncreaseProduct(Product product)
         {
             if (_data.ListOfProducts.ContainsKey(product))
             {
@@ -36,7 +37,7 @@ namespace Codecool.CodecoolShop.Daos.Implementations
             }
         }
 
-        public void RemoveProduct(Product product)
+        public void DecreaseProduct(Product product)
         {
             if (_data.ListOfProducts[product] > 1)
             {
@@ -49,9 +50,14 @@ namespace Codecool.CodecoolShop.Daos.Implementations
 
         }
 
-        public void RemoveAllProducts(Product product)
+        public void RemoveProduct(Product product)
         {
             _data.ListOfProducts.Remove(product);
+        }
+
+        public void RemoveAllProducts()
+        {
+            _data.ListOfProducts.Clear();
         }
     }
 }

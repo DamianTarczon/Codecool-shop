@@ -7,9 +7,9 @@ namespace Codecool.CodecoolShop.Daos
     public interface ICartDao
     {
         public Dictionary<Product, int> GetAll();
-        public void AddProduct(Product product);
+        public void IncreaseProduct(Product product);
+        public void DecreaseProduct(Product product);
         public void RemoveProduct(Product product);
-        public void RemoveAllProducts(Product product);
-
+        public void RemoveAllProducts();
     }
 }

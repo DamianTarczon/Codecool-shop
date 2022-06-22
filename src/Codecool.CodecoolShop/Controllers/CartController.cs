@@ -24,8 +24,24 @@ namespace Codecool.CodecoolShop.Controllers
                 ProductCategoryDaoMemory.GetInstance(),
                 SupplierDaoMemory.GetInstance());
         }
-        public IActionResult Index()
+        public IActionResult Index(string buttonType = "", int productId = 0)
         {
+            if (buttonType == "delete")
+            {
+                CartService.RemoveProduct(productId);
+            }
+            else if (buttonType == "increase")
+            {
+                CartService.IncreaseProduct(productId);
+            }
+            else if (buttonType == "decrease")
+            {
+                CartService.DecreaseProduct(productId);
+            }
+            else if (buttonType == "deleteAll")
+            {
+                CartService.RemoveAllProducts();
+            }
             var card = CartService.GetCart();
             return View(card);
         }
@@ -33,7 +49,7 @@ namespace Codecool.CodecoolShop.Controllers
        /*[HttpPost]*/
         public IActionResult Add(int productId, string categoryOrSupplier)
         {
-            CartService.AddProduct(productId);
+            CartService.IncreaseProduct(productId);
             int categoryId;
             int supplierId;
             if (categoryOrSupplier != "category")

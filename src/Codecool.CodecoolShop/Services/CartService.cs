@@ -18,16 +18,32 @@ namespace Codecool.CodecoolShop.Services
 
         }
 
-        public void AddProduct(int productId)
+        public void IncreaseProduct(int productId)
         {
-            
             var product = _productService.GetProduct(productId);
-            _cartDao.AddProduct(product);
+            _cartDao.IncreaseProduct(product);
         }
 
         public Dictionary<Product,int> GetCart()
         {
             return _cartDao.GetAll();
+        }
+
+        public void RemoveProduct(int productId)
+        {
+            var product = _productService.GetProduct(productId);
+            _cartDao.RemoveProduct(product);
+        }
+
+        public void DecreaseProduct(int productId)
+        {
+            var product = _productService.GetProduct(productId);
+            _cartDao.DecreaseProduct(product);
+        }
+
+        public void RemoveAllProducts()
+        {
+            _cartDao.RemoveAllProducts();
         }
     }
 }
