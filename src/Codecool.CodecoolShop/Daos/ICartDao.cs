@@ -6,7 +6,6 @@ namespace Codecool.CodecoolShop.Daos
 {
     public interface ICartDao
     {
-        public CartDao GetInstance();
         public Dictionary<Product, int> GetAll();
         public void AddProduct(Product product);
         public void RemoveProduct(Product product);

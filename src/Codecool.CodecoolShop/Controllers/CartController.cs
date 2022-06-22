@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Codecool.CodecoolShop.Daos;
 using Codecool.CodecoolShop.Daos.Implementations;
+using Codecool.CodecoolShop.Models;
 using Codecool.CodecoolShop.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,12 +11,11 @@ namespace Codecool.CodecoolShop.Controllers
     {
         private CartService CartService { get; set; }
         private ProductService ProductService { get; set; }
-        private ICartDao _cartDao = new CartDao();
 
         public CartController()
         {
             CartService = new CartService(
-                _cartDao.GetInstance(),
+                CartDao.GetInstance(),
                 ProductDaoMemory.GetInstance(),
                 ProductCategoryDaoMemory.GetInstance(),
                 SupplierDaoMemory.GetInstance());
@@ -34,9 +34,9 @@ namespace Codecool.CodecoolShop.Controllers
         public IActionResult Add(int productId)
         {
             CartService.AddProduct(productId);
-            var Cart = CartService.GetCard();
-            return View(Cart);
-            /*return RedirectToAction("Index", "Cart");*/
+            var categoryId = ProductService.GetProduct(productId).ProductCategory.Id;
+            /*return View(Cart);*/
+            return RedirectToAction("Index", "Product", new {id = categoryId, category = "category"});
         }
     }
 }

@@ -5,63 +5,53 @@ namespace Codecool.CodecoolShop.Daos.Implementations
 {
     public class CartDao : ICartDao
     {
-        private Cart _cart = new Cart();
-        private static CartDao instance = null;
+        private Cart _data = new Cart();
+        private static CartDao _instance = null;
 
-        public CartDao()
+        public static CartDao GetInstance()
         {
-        }
-
-
-        private static CartDao GetInstance()
-        {
-            if (instance == null)
+            if (_instance == null)
             {
-                instance = new CartDao();
+                _instance = new CartDao();
             }
 
-            return instance;
+            return _instance;
         }
 
-        CartDao ICartDao.GetInstance()
-        {
-            var cartDao = CartDao.GetInstance();
-            return cartDao;
-        }
 
         public Dictionary<Product,int> GetAll()
         {
-            return _cart.ListOfProducts;
+            return _data.ListOfProducts;
         }
 
         public void AddProduct(Product product)
         {
-            if (_cart.ListOfProducts.ContainsKey(product))
+            if (_data.ListOfProducts.ContainsKey(product))
             {
-                _cart.ListOfProducts[product] += 1;
+                _data.ListOfProducts[product] += 1;
             }
             else
             {
-                _cart.ListOfProducts.Add(product, 1);
+                _data.ListOfProducts.Add(product, 1);
             }
         }
 
         public void RemoveProduct(Product product)
         {
-            if (_cart.ListOfProducts[product] > 1)
+            if (_data.ListOfProducts[product] > 1)
             {
-                _cart.ListOfProducts[product] -= 1;
+                _data.ListOfProducts[product] -= 1;
             }
             else
             {
-                _cart.ListOfProducts.Remove(product);
+                _data.ListOfProducts.Remove(product);
             }
 
         }
 
         public void RemoveAllProducts(Product product)
         {
-            _cart.ListOfProducts.Remove(product);
+            _data.ListOfProducts.Remove(product);
         }
     }
 }

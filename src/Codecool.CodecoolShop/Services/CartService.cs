@@ -20,15 +20,14 @@ namespace Codecool.CodecoolShop.Services
 
         public void AddProduct(int productId)
         {
-            var card = _cartDao.GetInstance();
+            
             var product = _productService.GetProduct(productId);
-            card.AddProduct(product);
+            _cartDao.AddProduct(product);
         }
 
-        public Dictionary<Product,int> GetCard()
+        public Dictionary<Product,int> GetCart()
         {
-            var card = _cartDao.GetInstance();
-            return card.GetAll();
+            return _cartDao.GetAll();
         }
     }
 }

@@ -17,6 +17,10 @@ namespace Codecool.CodecoolShop.Controllers
         private readonly ILogger<ProductController> _logger;
         public ProductService ProductService { get; set; }
 
+        private CartService CartService { get; set; }
+
+        private ViewModel ViewModel { get; set; }
+
         public ProductController(ILogger<ProductController> logger)
         {
             _logger = logger;
@@ -24,6 +28,13 @@ namespace Codecool.CodecoolShop.Controllers
                 ProductDaoMemory.GetInstance(),
                 ProductCategoryDaoMemory.GetInstance(),
                 SupplierDaoMemory.GetInstance());
+            CartService = new CartService(
+                CartDao.GetInstance(),
+                ProductDaoMemory.GetInstance(),
+                ProductCategoryDaoMemory.GetInstance(),
+                SupplierDaoMemory.GetInstance());
+            ViewModel = new ViewModel();
+            ViewModel.ProductsInCart = CartService.GetCart();
         }
 
         public IActionResult Index(int id = 1, string category = "category")
@@ -31,10 +42,12 @@ namespace Codecool.CodecoolShop.Controllers
             if (category != "category")
             {
                 var productsBySupplier = ProductService.GetProductsBySupplier(id);
-                return View(productsBySupplier.ToList());
+                ViewModel.Products = productsBySupplier.ToList();
+                return View(ViewModel);
             }
             var productsByCategory = ProductService.GetProductsForCategory(id);
-            return View(productsByCategory.ToList());
+            ViewModel.Products = productsByCategory.ToList();
+            return View(ViewModel);
         }
         public IActionResult Privacy()
         {
