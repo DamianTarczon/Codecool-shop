@@ -29,5 +29,25 @@ namespace Codecool.CodecoolShop.Controllers
                 return View();
             }
         }
+
+        [HttpGet]
+        public IActionResult UserDataDetails()
+        {
+            return View();
+
+        }
+
+        [HttpPost]
+        public ViewResult UserDataDetails(UserData userData)
+        {
+            if (ModelState.IsValid)
+            {
+                return View(userData);
+            }
+            else
+            {
+                return View();
+            }
+        }
     }
 }
