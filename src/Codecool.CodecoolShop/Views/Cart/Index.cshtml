@@ -12,6 +12,7 @@
 }
 
 <button class="deleteAll-btn" type="button" onclick="location.href = '@Url.Action("Index", "Cart", new {buttonType = "deleteAll"})'">Clear all</button>
+<a href="@Url.Action("UserDataDetails","Order") type="button" class="btn btn-primary" style="float: bottom">Add To CartDao </a>
 
 @foreach (var element in Model)
 {
