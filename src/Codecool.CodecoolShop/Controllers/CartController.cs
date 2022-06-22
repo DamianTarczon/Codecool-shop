@@ -26,7 +26,7 @@ namespace Codecool.CodecoolShop.Controllers
         }
         public IActionResult Index()
         {
-            var card = new CartDao().GetAll();
+            var card = CartService.GetCart();
             return View(card);
         }
 

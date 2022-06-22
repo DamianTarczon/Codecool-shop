@@ -4,10 +4,9 @@
 
 @model ViewModel
 
-<div id="shopping-cart">
-
-    <h4 style="margin-left: 90%" class='fas fa-shopping-cart' style='font-size: 48px'>@Model.ProductsInCart.Sum(x=>x.Value) </h4> <br/>
-</div>
+<div>
+    <button type="button" onclick="location.href = '@Url.Action("Index", "Cart")'" /> <i class="fa fa-shopping-cart">@Model.ProductsInCart.Sum(x=>x.Value)</i></button>
+<div/>
 @{  
 }
     @foreach (var element in Model.Products)
