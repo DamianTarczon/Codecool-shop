@@ -39,6 +39,7 @@ namespace Codecool.CodecoolShop.Controllers
 
         public IActionResult Index(int id = 1, string categoryOrSupplier = "category")
         {
+            
             if (categoryOrSupplier != "category")
             {
                 var productsBySupplier = ProductService.GetProductsBySupplier(id);
