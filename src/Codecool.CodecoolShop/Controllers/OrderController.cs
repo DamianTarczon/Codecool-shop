@@ -8,7 +8,8 @@ namespace Codecool.CodecoolShop.Controllers
 {
     public class OrderController : Controller
     {
-        private Order _order;
+        private static Order _order;
+
         private UserData _validUserData;
         private Cart _cart;
         private OrderService OrderService { get; set; }
@@ -22,8 +23,6 @@ namespace Codecool.CodecoolShop.Controllers
                 ProductCategoryDaoMemory.GetInstance(),
                 SupplierDaoMemory.GetInstance());
             OrderService = new OrderService(OrderDaoMemory.GetInstance());
-            _order = new Order(DateTime.Now);
-            _order.OrderedProducts = CartService.GetCart();
         }
         public IActionResult Index()
         {
@@ -34,6 +33,7 @@ namespace Codecool.CodecoolShop.Controllers
         [HttpGet]
         public IActionResult OrderDetails(int orderId)
         {
+            Order order = OrderService.GetOrder(orderId);
             return View(order);
         }
 
@@ -68,6 +68,8 @@ namespace Codecool.CodecoolShop.Controllers
         {
             if (ModelState.IsValid)
             {
+                _order = new Order(DateTime.Now);
+                _order.OrderedProducts = CartService.GetCart();
                 _order.UserData = userData;
                 return RedirectToAction("MakePayment", "Order");
             }
