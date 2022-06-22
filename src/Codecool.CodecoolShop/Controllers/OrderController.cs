@@ -18,7 +18,7 @@ namespace Codecool.CodecoolShop.Controllers
         }
 
         [HttpPost]
-        public ViewResult CreditCardDetails(CreditCard credit)
+        public ViewResult CreditCardDetails(CreditCard creditCard)
         {
             if (ModelState.IsValid)
             {

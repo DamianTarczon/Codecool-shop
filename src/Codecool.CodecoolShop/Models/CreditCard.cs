@@ -11,7 +11,7 @@ namespace Codecool.CodecoolShop.Models
         [Required(ErrorMessage = "Please enter valid card number")]
         [StringLength(16, MinimumLength = 16, ErrorMessage = "Card number should consist of 16 digits")]
         [RegularExpression("^[0-9]*$", ErrorMessage = "Card number must be numeric")]
-        public String? CardNumber { get; set; }
+        public string? CardNumber { get; set; }
 
         [Required(ErrorMessage = "Please enter your first name")]
         [StringLength(49, MinimumLength = 2, ErrorMessage = "Please enter valid first name" )]
