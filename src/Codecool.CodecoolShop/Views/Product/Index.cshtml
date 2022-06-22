@@ -5,7 +5,8 @@
 @model ViewModel
 
 <div id="shopping-cart">
-    <h4 style ="margin-left:90% " class='fas fa-shopping-cart' style='font-size:48px'>@Model.ProductsInCart.Count </h4> <br/> 
+
+    <h4 style="margin-left: 90%" class='fas fa-shopping-cart' style='font-size: 48px'>@Model.ProductsInCart.Sum(x=>x.Value) </h4> <br/>
 </div>
 @{  
 }
@@ -26,7 +27,7 @@
                     <p class="card-text">Category: @element.ProductCategory.Department</p>
                     <p class="card-text">Supplier: @element.Supplier.Name</p>
                     <p class="card-text text-center"><strong>Price: @element.DefaultPrice.ToString("C2")</strong></p>
-                    <a href="@Url.Action("Add","Cart", new {productId = @element.Id})" type="button" class="btn btn-primary" style="float: bottom">Add To CartDao </a>
+                    <a href="@Url.Action("Add","Cart", new {productId = @element.Id, categoryOrSupplier = Model.CategoryOrSupplier })" type="button" class="btn btn-primary" style="float: bottom">Add To CartDao </a>
                 </div>
             </div>
         </div>

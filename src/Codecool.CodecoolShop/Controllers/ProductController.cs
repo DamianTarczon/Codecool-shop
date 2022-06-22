@@ -37,16 +37,18 @@ namespace Codecool.CodecoolShop.Controllers
             ViewModel.ProductsInCart = CartService.GetCart();
         }
 
-        public IActionResult Index(int id = 1, string category = "category")
+        public IActionResult Index(int id = 1, string categoryOrSupplier = "category")
         {
-            if (category != "category")
+            if (categoryOrSupplier != "category")
             {
                 var productsBySupplier = ProductService.GetProductsBySupplier(id);
                 ViewModel.Products = productsBySupplier.ToList();
+                ViewModel.CategoryOrSupplier = categoryOrSupplier;
                 return View(ViewModel);
             }
             var productsByCategory = ProductService.GetProductsForCategory(id);
             ViewModel.Products = productsByCategory.ToList();
+            ViewModel.CategoryOrSupplier = categoryOrSupplier;
             return View(ViewModel);
         }
         public IActionResult Privacy()

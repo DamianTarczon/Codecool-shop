@@ -6,5 +6,7 @@ namespace Codecool.CodecoolShop.Models
     { 
         public Dictionary<Product,int> ProductsInCart { get; set; }
         public List<Product> Products { get; set; }
+
+        public string CategoryOrSupplier { get; set; }
     }
 }

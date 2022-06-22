@@ -31,12 +31,18 @@ namespace Codecool.CodecoolShop.Controllers
         }
 
        /*[HttpPost]*/
-        public IActionResult Add(int productId)
+        public IActionResult Add(int productId, string categoryOrSupplier)
         {
             CartService.AddProduct(productId);
-            var categoryId = ProductService.GetProduct(productId).ProductCategory.Id;
-            /*return View(Cart);*/
-            return RedirectToAction("Index", "Product", new {id = categoryId, category = "category"});
+            int categoryId;
+            int supplierId;
+            if (categoryOrSupplier != "category")
+            {
+                supplierId = ProductService.GetProduct(productId).Supplier.Id;
+                return RedirectToAction("Index", "Product", new { id = supplierId, categoryOrSupplier = categoryOrSupplier });
+            } 
+            else categoryId = ProductService.GetProduct(productId).ProductCategory.Id;
+            return RedirectToAction("Index", "Product", new { id = categoryId, categoryOrSupplier = categoryOrSupplier });
         }
     }
 }
