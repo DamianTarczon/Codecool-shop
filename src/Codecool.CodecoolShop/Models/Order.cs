@@ -21,5 +21,6 @@ namespace Codecool.CodecoolShop.Models
             _createdDate = createdDate;
         }
 
+
     }
 }
