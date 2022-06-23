@@ -4,16 +4,16 @@ using Codecool.CodecoolShop.Models;
 
 namespace Codecool.CodecoolShop.Daos.Implementations
 {
-    public class OrderDaoMemory : IOrderDaoMemory
+    public class OrderDao : IOrderDao
     {
         private List<Order> _data = new List<Order>();
-        private static OrderDaoMemory _instance = null;
+        private static OrderDao _instance = null;
 
-        public static OrderDaoMemory GetInstance()
+        public static OrderDao GetInstance()
         {
             if (_instance == null)
             {
-                _instance = new OrderDaoMemory();
+                _instance = new OrderDao();
             }
 
             return _instance;
