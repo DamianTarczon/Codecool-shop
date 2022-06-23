@@ -36,7 +36,7 @@
                 <button class="minus-btn" type="button" onclick="location.href = '@Url.Action("Index", "Cart", new { buttonType = "decrease", productId = element.Key.Id })'">-</button>
             </div>
             <div class="product-removal">
-                <a class="remove-product" href="location.href = '@Url.Action("Index", "Cart", new { buttonType = "delete", productId = element.Key.Id })'">
+                <a class="remove-product" href="@Url.Action("Index", "Cart", new { buttonType = "delete", productId = element.Key.Id })">
                     Remove
                 </a>
             </div>
