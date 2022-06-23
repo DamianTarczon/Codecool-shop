@@ -46,6 +46,7 @@ namespace Codecool.CodecoolShop.Controllers
                 _order.PaymentStatus = PaymentStatusEnum.Paid;
                 OrderService.UpdateOrder(_order);
                 OrderService.SaveToJson(_order);
+                MailService.MailSender(_order);
                 return RedirectToAction("OrderDetails", "Order", new {orderId = _order.Id});
             }
             else
