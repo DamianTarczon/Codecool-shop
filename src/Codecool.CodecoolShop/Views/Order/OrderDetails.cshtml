@@ -5,9 +5,9 @@
 @model Order
 @{
     decimal totalPrice = 0;
-    foreach (var el in Model.OrderedProducts)
+    foreach (var el in Model.OrderDetails)
     {
-        totalPrice += el.Key.DefaultPrice * el.Value;
+        totalPrice += el.NumberOfProduct * el.ProductPrice;
     }
 }
 <section class="order">
@@ -20,7 +20,7 @@
     <table id="values" class="order__subtotal__table">
       <tbody>
         <tr>
-          <td class="first-row">Product (<a href="#">@Model.OrderedProducts.Sum(x=>x.Value) item/s</a>)</td>
+          <td class="first-row">Product (<a href="#">@Model.OrderDetails.Sum(x=>x.NumberOfProduct) item/s</a>)</td>
           <td class="first-row" align="right">@totalPrice zł</td>
         </tr>
         <tr>

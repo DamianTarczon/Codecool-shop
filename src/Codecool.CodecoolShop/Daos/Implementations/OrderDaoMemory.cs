@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Codecool.CodecoolShop.Models;
 
 namespace Codecool.CodecoolShop.Daos.Implementations
@@ -27,6 +28,12 @@ namespace Codecool.CodecoolShop.Daos.Implementations
         {
             order.Id = _data.Count + 1;
            _data.Add(order); 
+        }
+
+        public void UpdateOrder(Order order)
+        {
+            var orderToUpdateId = _data.Where(x => x.Id == order.Id).FirstOrDefault().Id;
+            _data[orderToUpdateId - 1] = order;
         }
     }
 }

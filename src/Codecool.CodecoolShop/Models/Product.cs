@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 namespace Codecool.CodecoolShop.Models
 {
@@ -14,5 +15,6 @@ namespace Codecool.CodecoolShop.Models
             ProductCategory = productCategory;
             ProductCategory.Products.Add(this);
         }
+
     }
 }

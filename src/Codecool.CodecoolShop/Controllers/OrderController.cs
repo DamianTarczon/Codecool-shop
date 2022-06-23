@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Codecool.CodecoolShop.Daos.Implementations;
 using Codecool.CodecoolShop.Models;
 using Codecool.CodecoolShop.Services;
@@ -42,7 +43,9 @@ namespace Codecool.CodecoolShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                OrderService.AddOrder(_order);
+                _order.PaymentStatus = PaymentStatusEnum.Paid;
+                OrderService.UpdateOrder(_order);
+                OrderService.SaveToJson(_order);
                 return RedirectToAction("OrderDetails", "Order", new {orderId = _order.Id});
             }
             else
@@ -68,9 +71,9 @@ namespace Codecool.CodecoolShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                _order = new Order(DateTime.Now);
-                _order.OrderedProducts = CartService.GetCart();
-                _order.UserData = userData;
+                _order = OrderService.MakeNewOrder(userData, CartService.GetCart());
+                OrderService.AddOrder(_order);
+                OrderService.SaveToJson(_order);
                 return RedirectToAction("MakePayment", "Order");
             }
             else
