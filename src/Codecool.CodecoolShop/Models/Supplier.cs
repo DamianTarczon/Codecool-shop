@@ -4,6 +4,7 @@ namespace Codecool.CodecoolShop.Models
 {
     public class Supplier : BaseModel
     {
+        public int Id { get; set; }
         public List<Product> Products { get; set; }
         
         public override string ToString()

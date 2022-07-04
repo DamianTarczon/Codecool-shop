@@ -5,6 +5,7 @@ namespace Codecool.CodecoolShop.Models
 {
     public class OrderDetails
     {
+        public int Id { get; set; }
         public OrderDetails(int productId, string productName, decimal productPrice, int numberOfProduct)
         {
             ProductId = productId;

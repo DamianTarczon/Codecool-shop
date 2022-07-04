@@ -17,21 +17,21 @@ namespace Codecool.CodecoolShop.Models
 
         public PaymentStatusEnum PaymentStatus { get; set; }
 
-        public List<OrderDetails> OrderDetails { get; set; }
+        public List<OrderDetails> ProductsDetails { get; set; }
 
         public Order(DateTime createdDate)
         {
             _createdDate = createdDate;
         }
 
-        public void MakeOrderDetails(Dictionary<Product, int> orderedProducts)
+        public void MakeProductsDetails(Dictionary<Product, int> orderedProducts)
         {
-            OrderDetails = new List<OrderDetails>();
+            ProductsDetails = new List<OrderDetails>();
             foreach (var product in orderedProducts)
             {
                 var singleOrderDetails = new OrderDetails(product.Key.Id, product.Key.Name, product.Key.DefaultPrice,
                     product.Value);
-                OrderDetails.Add(singleOrderDetails);
+                ProductsDetails.Add(singleOrderDetails);
             }
         }
 

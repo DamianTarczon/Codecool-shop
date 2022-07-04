@@ -33,7 +33,7 @@ namespace Codecool.CodecoolShop.Services
             var order = new Order(DateTime.Now);
             order.PaymentStatus = PaymentStatusEnum.Unpaid;
             order.UserData = userData;
-            order.MakeOrderDetails(productsList);
+            order.MakeProductsDetails(productsList);
             return order;
         }
 
