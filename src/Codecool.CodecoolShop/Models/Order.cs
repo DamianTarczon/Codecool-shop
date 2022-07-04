@@ -17,7 +17,7 @@ namespace Codecool.CodecoolShop.Models
 
         public PaymentStatusEnum PaymentStatus { get; set; }
 
-        public List<OrderDetails> OrderDetails { get; set; } = new List<OrderDetails>();
+        public List<OrderDetails> OrderDetails { get; set; }
 
         public Order(DateTime createdDate)
         {
@@ -26,6 +26,7 @@ namespace Codecool.CodecoolShop.Models
 
         public void MakeOrderDetails(Dictionary<Product, int> orderedProducts)
         {
+            OrderDetails = new List<OrderDetails>();
             foreach (var product in orderedProducts)
             {
                 var singleOrderDetails = new OrderDetails(product.Key.Id, product.Key.Name, product.Key.DefaultPrice,

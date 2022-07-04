@@ -9,10 +9,10 @@ namespace Codecool.CodecoolShop.Services
 {
     public class OrderService
     {
-        private readonly IOrderDaoMemory _orderDao;
+        private readonly IOrderDao _orderDao;
         private readonly OrderToJson _orderToJson;
 
-        public OrderService(IOrderDaoMemory orderDao)
+        public OrderService(IOrderDao orderDao)
         {
             _orderDao = orderDao;
             _orderToJson = new OrderToJson();
