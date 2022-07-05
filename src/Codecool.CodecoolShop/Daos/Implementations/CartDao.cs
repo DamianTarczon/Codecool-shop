@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Codecool.CodecoolShop.Data;
 using Codecool.CodecoolShop.Models;
 using Microsoft.EntityFrameworkCore;
@@ -11,12 +12,6 @@ namespace Codecool.CodecoolShop.Daos.Implementations
     {
         private Cart _data = new Cart();
         private static CartDao _instance = null;
-        private readonly CodecoolShopContext _context;
-
-        /*public CartDao(CodecoolShopContext context)
-        {
-            _context = context;
-        }*/
 
         public static CartDao GetInstance()
         {
@@ -31,37 +26,43 @@ namespace Codecool.CodecoolShop.Daos.Implementations
 
         public Dictionary<Product,int> GetAll()
         {
-            var itemList = _context.Carts.Where(x => x.Id == 1).Select(x => x.CartDetails);
             var productDict = new Dictionary<Product, int>();
-            /*foreach (var product in _data.CartDetails)
+            foreach (var cartDetail in _data.CartDetails)
             {
-                if (productDict.ContainsKey(product))
+                if (productDict.ContainsKey(cartDetail.Product))
                 {
-                    productDict[product]++;
+                    productDict[cartDetail.Product] = cartDetail.Quantity;
                 }
                 else 
-                    productDict.Add(product, 1);
-            }*/
+                    productDict.Add(cartDetail.Product, cartDetail.Quantity);
+            }
             return productDict;
         }
 
         public void IncreaseProduct(Product product)
         {
-            /*_data.CartDetails.Add(product);*/
+            int id = _data.CartDetails.Count + 1;
+            CartDetail cartDetail = new CartDetail() {Cart = _data, Id = id, Product = product, Quantity = 1 };
+
+            if (_data.CartDetails.Count == 0)
+            {
+                _data.CartDetails.Add(cartDetail);
+            }
+            else if (_data.CartDetails.Where(x => x.Product == product).SingleOrDefault()==null)
+            { _data.CartDetails.Add(cartDetail); }
+            else
+            _data.CartDetails.Where(x => x.Product == product).SingleOrDefault().Quantity++;
         }
 
         public void DecreaseProduct(Product product)
         {
-            /*_data.CartDetails.Remove(product);*/
+            _data.CartDetails.Where(x => x.Product == product).FirstOrDefault().Quantity--;
 
         }
 
         public void RemoveProduct(Product product)
         {
-            /*while (_data.CartDetails.Contains(product))
-            {
-                _data.CartDetails.Remove(product);
-            }*/
+            _data.CartDetails.Remove(_data.CartDetails.Where(x => x.Product == product).FirstOrDefault());
         }
 
         public void RemoveAllProducts()
