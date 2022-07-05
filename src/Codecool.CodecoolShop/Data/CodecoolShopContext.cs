@@ -31,7 +31,7 @@ namespace Codecool.CodecoolShop.Data
                     .LogTo(Console.WriteLine, LogLevel.Information)
                     .EnableSensitiveDataLogging();
             }
-
+            
             base.OnConfiguring(optionsBuilder);
         }
 
@@ -159,6 +159,7 @@ namespace Codecool.CodecoolShop.Data
                 GraminFenix5,
                 XiaomiMiBand6
             );
+            /*modelBuilder.Entity<Cart>().*/
         }
     }
 }

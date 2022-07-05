@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace Codecool.CodecoolShop.Models
 {
     public class Cart
     {
+        [Key]
         public int Id { get; set; }
 
-        public List<Product> CartDetails { get; set; } = new List<Product>();
+        public List<CartDetail> CartDetails { get; set; } = new List<CartDetail>();
 
     }
 }

@@ -31,9 +31,9 @@ namespace Codecool.CodecoolShop.Daos.Implementations
 
         public Dictionary<Product,int> GetAll()
         {
-            /*var itemList = _context.Carts.Include(x => x.Id == id).Select(x=>x.CartDetails);*/
+            var itemList = _context.Carts.Where(x => x.Id == 1).Select(x => x.CartDetails);
             var productDict = new Dictionary<Product, int>();
-            foreach (var product in _data.CartDetails)
+            /*foreach (var product in _data.CartDetails)
             {
                 if (productDict.ContainsKey(product))
                 {
@@ -41,27 +41,27 @@ namespace Codecool.CodecoolShop.Daos.Implementations
                 }
                 else 
                     productDict.Add(product, 1);
-            }
+            }*/
             return productDict;
         }
 
         public void IncreaseProduct(Product product)
         {
-            _data.CartDetails.Add(product);
+            /*_data.CartDetails.Add(product);*/
         }
 
         public void DecreaseProduct(Product product)
         {
-            _data.CartDetails.Remove(product);
+            /*_data.CartDetails.Remove(product);*/
 
         }
 
         public void RemoveProduct(Product product)
         {
-            while (_data.CartDetails.Contains(product))
+            /*while (_data.CartDetails.Contains(product))
             {
                 _data.CartDetails.Remove(product);
-            }
+            }*/
         }
 
         public void RemoveAllProducts()
