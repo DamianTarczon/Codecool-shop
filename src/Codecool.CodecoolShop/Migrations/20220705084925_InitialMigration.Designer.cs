@@ -3,6 +3,7 @@ using Codecool.CodecoolShop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Codecool.CodecoolShop.Migrations
 {
     [DbContext(typeof(CodecoolShopContext))]
-    partial class CodecoolShopContextModelSnapshot : ModelSnapshot
+    [Migration("20220705084925_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,89 +58,7 @@ namespace Codecool.CodecoolShop.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("Products", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Currency = "USD",
-                            DefaultPrice = 49.9m,
-                            Description = "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.",
-                            Name = "Amazon Fire",
-                            ProductCategoryId = 1,
-                            SupplierId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Currency = "USD",
-                            DefaultPrice = 479.0m,
-                            Description = "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.",
-                            Name = "Lenovo IdeaPad Miix 700",
-                            ProductCategoryId = 1,
-                            SupplierId = 5
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Currency = "USD",
-                            DefaultPrice = 89.0m,
-                            Description = "Amazon's latest Fire HD 8 tablet is a great value for media consumption.",
-                            Name = "Amazon Fire HD 8",
-                            ProductCategoryId = 1,
-                            SupplierId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Currency = "USD",
-                            DefaultPrice = 500.9m,
-                            Description = "Fantasic mobile phone",
-                            Name = "iPhone 10",
-                            ProductCategoryId = 2,
-                            SupplierId = 2
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Currency = "USD",
-                            DefaultPrice = 500.9m,
-                            Description = "Good enough",
-                            Name = "iPhone 8",
-                            ProductCategoryId = 2,
-                            SupplierId = 2
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Currency = "USD",
-                            DefaultPrice = 50.9m,
-                            Description = "Fantasic smartwatch with good price",
-                            Name = "Xiaomi Redmi 2",
-                            ProductCategoryId = 2,
-                            SupplierId = 3
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Currency = "USD",
-                            DefaultPrice = 60.9m,
-                            Description = "Smartwatch with a lot of functions",
-                            Name = "Garmin Fenix 5",
-                            ProductCategoryId = 3,
-                            SupplierId = 4
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Currency = "USD",
-                            DefaultPrice = 70.9m,
-                            Description = "The best smartwatch",
-                            Name = "Xiaomi Mi Band 6",
-                            ProductCategoryId = 3,
-                            SupplierId = 3
-                        });
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Codecool.CodecoolShop.Models.ProductCategory", b =>
@@ -162,30 +82,7 @@ namespace Codecool.CodecoolShop.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductCategories", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Department = "Hardware",
-                            Description = "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.",
-                            Name = "Tablet"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Department = "Hardware",
-                            Description = "A mobile phone that is smart",
-                            Name = "Smartphone"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Department = "Luxury goods",
-                            Description = "A watch with smart functions",
-                            Name = "Smartwatch"
-                        });
+                    b.ToTable("ProductCategories");
                 });
 
             modelBuilder.Entity("Codecool.CodecoolShop.Models.Supplier", b =>

@@ -30,7 +30,11 @@ namespace Codecool.CodecoolShop
         {
             services.AddControllersWithViews();
             services.AddDbContext<CodecoolShopContext>(options =>
-                options.UseSqlServer("Data Source=localhost;Database=codecoolshop;Integrated Security=true"));
+            {
+                options.UseSqlServer("Data Source=localhost;Database=codecoolshop;Integrated Security=true");
+                options.EnableSensitiveDataLogging();
+            }
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,28 +64,34 @@ namespace Codecool.CodecoolShop
                     pattern: "{controller=Product}/{action=Index}/{id?}");
             });
 
-            SetupInMemoryDatabases();
+            
             var database = serviceProvider.GetService<CodecoolShopContext>();
             database.Database.EnsureCreated();
+            SetupInMemoryDatabases();
 
         }
 
 
         private void SetupInMemoryDatabases()
         {
+            //DbContextOptions <CodecoolShopContext> options = new DbContextOptions<CodecoolShopContext>();
+            //CodecoolShopContext codecoolShopContext = new CodecoolShopContext(options);
+
             IProductDao productDataStore = ProductDaoMemory.GetInstance();
             IProductCategoryDao productCategoryDataStore = ProductCategoryDaoMemory.GetInstance();
             ISupplierDao supplierDataStore = SupplierDaoMemory.GetInstance();
 
             Supplier amazon = new Supplier{Name = "Amazon", Description = "Digital content and services"};
             supplierDataStore.Add(amazon);
+            //codecoolShopContext.Suppliers.Add(amazon);
+            //codecoolShopContext.SaveChanges();
             Supplier apple = new Supplier() {Name = "Apple", Description = "Digital content"};
             supplierDataStore.Add(apple);
             Supplier xiaomi = new Supplier() { Name = "Xiaomi", Description = "Digital content" };
             supplierDataStore.Add(xiaomi);
             Supplier garmin = new Supplier() { Name = "Garmin", Description = "Electronics watches" };
             supplierDataStore.Add(garmin);
-            Supplier lenovo = new Supplier{Name = "Lenovo", Description = "Computers"};
+            Supplier lenovo = new Supplier() {Name = "Lenovo", Description = "Computers"};
             supplierDataStore.Add(lenovo);
             ProductCategory tablet = new ProductCategory {Name = "Tablet", Department = "Hardware", Description = "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display." };
             ProductCategory smartphone = new ProductCategory { Name = "Smartphone", Department = "Hardware", Description = "A mobile phone that is smart" };
