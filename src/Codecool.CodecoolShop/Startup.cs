@@ -32,7 +32,7 @@ namespace Codecool.CodecoolShop
             services.AddControllersWithViews();
             services.AddDbContext<CodecoolShopContext>(options =>
             {
-                options.UseSqlServer("DefaultConnection");
+                options.UseSqlServer("Data Source=localhost;Database=codecoolshop;Integrated Security=true");
                 options.EnableSensitiveDataLogging();
             }
             );
@@ -75,17 +75,12 @@ namespace Codecool.CodecoolShop
 
         private void SetupInMemoryDatabases()
         {
-            //DbContextOptions <CodecoolShopContext> options = new DbContextOptions<CodecoolShopContext>();
-            //CodecoolShopContext codecoolShopContext = new CodecoolShopContext(options);
-
             IProductDao productDataStore = ProductDaoMemory.GetInstance();
             IProductCategoryDao productCategoryDataStore = ProductCategoryDaoMemory.GetInstance();
             ISupplierDao supplierDataStore = SupplierDaoMemory.GetInstance();
 
             Supplier amazon = new Supplier{Name = "Amazon", Description = "Digital content and services"};
             supplierDataStore.Add(amazon);
-            //codecoolShopContext.Suppliers.Add(amazon);
-            //codecoolShopContext.SaveChanges();
             Supplier apple = new Supplier() {Name = "Apple", Description = "Digital content"};
             supplierDataStore.Add(apple);
             Supplier xiaomi = new Supplier() { Name = "Xiaomi", Description = "Digital content" };
