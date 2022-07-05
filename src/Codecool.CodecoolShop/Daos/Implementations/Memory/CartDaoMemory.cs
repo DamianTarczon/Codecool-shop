@@ -1,23 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using Codecool.CodecoolShop.Data;
 using Codecool.CodecoolShop.Models;
-using Microsoft.EntityFrameworkCore;
 
-
-namespace Codecool.CodecoolShop.Daos.Implementations
+namespace Codecool.CodecoolShop.Daos.Implementations.Memory
 {
-    public class CartDao : ICartDao
+    public class CartDaoMemory : ICartDao
     {
         private Cart _data = new Cart();
-        private static CartDao _instance = null;
+        private static CartDaoMemory _instance = null;
 
-        public static CartDao GetInstance()
+        public static CartDaoMemory GetInstance()
         {
             if (_instance == null)
             {
-                _instance = new CartDao();
+                _instance = new CartDaoMemory();
             }
 
             return _instance;

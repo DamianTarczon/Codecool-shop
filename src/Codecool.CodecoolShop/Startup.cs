@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Codecool.CodecoolShop.Daos;
 using Codecool.CodecoolShop.Daos.Implementations;
+using Codecool.CodecoolShop.Daos.Implementations.Memory;
 using Codecool.CodecoolShop.Data;
 using Codecool.CodecoolShop.Models;
 using Microsoft.AspNetCore.Builder;

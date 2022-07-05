@@ -2,18 +2,18 @@
 using System.Linq;
 using Codecool.CodecoolShop.Models;
 
-namespace Codecool.CodecoolShop.Daos.Implementations
+namespace Codecool.CodecoolShop.Daos.Implementations.Memory
 {
-    public class OrderDao : IOrderDao
+    public class OrderDaoMemory : IOrderDao
     {
         private List<Order> _data = new List<Order>();
-        private static OrderDao _instance = null;
+        private static OrderDaoMemory _instance = null;
 
-        public static OrderDao GetInstance()
+        public static OrderDaoMemory GetInstance()
         {
             if (_instance == null)
             {
-                _instance = new OrderDao();
+                _instance = new OrderDaoMemory();
             }
 
             return _instance;
