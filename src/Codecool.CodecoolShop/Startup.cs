@@ -31,7 +31,7 @@ namespace Codecool.CodecoolShop
             services.AddControllersWithViews();
             services.AddDbContext<CodecoolShopContext>(options =>
             {
-                options.UseSqlServer("Data Source=localhost;Database=codecoolshop;Integrated Security=true");
+                options.UseSqlServer("DefaultConnection");
                 options.EnableSensitiveDataLogging();
             }
             );
