@@ -1,10 +1,12 @@
 ﻿using System.Linq;
 using Codecool.CodecoolShop.Daos;
 using Codecool.CodecoolShop.Daos.Implementations;
+using Codecool.CodecoolShop.Daos.Implementations.Database;
 using Codecool.CodecoolShop.Daos.Implementations.Memory;
 using Codecool.CodecoolShop.Models;
 using Codecool.CodecoolShop.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Codecool.CodecoolShop.Controllers
 {
@@ -13,10 +15,11 @@ namespace Codecool.CodecoolShop.Controllers
         private CartService CartService { get; set; }
         private ProductService ProductService { get; set; }
 
+
         public CartController()
         {
             CartService = new CartService(
-                CartDaoMemory.GetInstance(),
+                new CartDaoDatabase(),
                 ProductDaoMemory.GetInstance(),
                 ProductCategoryDaoMemory.GetInstance(),
                 SupplierDaoMemory.GetInstance());
