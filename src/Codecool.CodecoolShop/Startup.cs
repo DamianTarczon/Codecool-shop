@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Codecool.CodecoolShop.Daos;
 using Codecool.CodecoolShop.Daos.Implementations;
+using Codecool.CodecoolShop.Daos.Implementations.Database;
 using Codecool.CodecoolShop.Daos.Implementations.Memory;
 using Codecool.CodecoolShop.Data;
 using Codecool.CodecoolShop.Models;
@@ -33,10 +34,14 @@ namespace Codecool.CodecoolShop
             services.AddControllersWithViews();
             services.AddDbContext<CodecoolShopContext>(options =>
             {
-                options.UseSqlServer("Data Source=localhost;Database=codecoolshop;Integrated Security=true");
+                Configuration.GetConnectionString("DefaultConnection");
                 options.EnableSensitiveDataLogging();
             }
             );
+            
+            services.AddScoped<IProductDao, ProductDaoDb>();
+            services.AddScoped<ISupplierDao, SupplierDaoDb>();
+            services.AddScoped<IProductCategoryDao, ProductCategoryDaoDb>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -24,13 +24,13 @@ namespace Codecool.CodecoolShop.Controllers
 
         private ProductViewModel ProductViewModel { get; set; }
 
-        public ProductController(ILogger<ProductController> logger)
+        public ProductController(ILogger<ProductController> logger, IProductDao productDao, IProductCategoryDao productCategoryDao, ISupplierDao supplierDao)
         {
             _logger = logger;
             ProductService = new ProductService(
-                new ProductDaoDb(),
-                ProductCategoryDaoMemory.GetInstance(),
-                SupplierDaoMemory.GetInstance());
+                productDao,
+                productCategoryDao,
+                supplierDao);
             CartService = new CartService(
                 CartDaoMemory.GetInstance(),
                 ProductDaoMemory.GetInstance(),
