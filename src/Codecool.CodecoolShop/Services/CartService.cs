@@ -3,6 +3,8 @@ using System.Linq;
 using Codecool.CodecoolShop.Daos;
 using Codecool.CodecoolShop.Daos.Implementations;
 using Codecool.CodecoolShop.Models;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Codecool.CodecoolShop.Services
 {
@@ -10,6 +12,7 @@ namespace Codecool.CodecoolShop.Services
     {
         private readonly  ICartDao _cartDao;
         private readonly ProductService _productService;
+        private readonly ILogger<CartService> _logger;
 
         public CartService(ICartDao cartDao, IProductDao productDao, IProductCategoryDao productCategoryDao, ISupplierDao supplierDao)
         {
