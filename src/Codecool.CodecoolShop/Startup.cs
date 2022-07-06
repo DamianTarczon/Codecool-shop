@@ -40,22 +40,18 @@ namespace Codecool.CodecoolShop
             }
             );
 
-            services.AddScoped<IProductDao, ProductDaoDb>();
-            services.AddScoped<ISupplierDao, SupplierDaoDb>();
-            services.AddScoped<IProductCategoryDao, ProductCategoryDaoDb>();
-            services.AddScoped<ICartDao, CartDaoDb>();
-            services.AddScoped<IOrderDao, OrderDaoDb>();
-            services.AddScoped<ProductService, ProductService>();
-            services.AddScoped<CartService, CartService>();
-            services.AddScoped<OrderService, OrderService>();
+            
 
             if (Configuration.GetValue<string>("Mode") == "sql")
             {
                 services.AddScoped<IProductDao, ProductDaoDb>();
                 services.AddScoped<ISupplierDao, SupplierDaoDb>();
                 services.AddScoped<IProductCategoryDao, ProductCategoryDaoDb>();
-
+                services.AddScoped<ICartDao, CartDaoDb>();
                 services.AddScoped<IOrderDao, OrderDaoDb>();
+                services.AddScoped<ProductService, ProductService>();
+                services.AddScoped<CartService, CartService>();
+                services.AddScoped<OrderService, OrderService>();
 
 
             }
@@ -66,6 +62,9 @@ namespace Codecool.CodecoolShop
                 services.AddScoped<IProductCategoryDao, ProductCategoryDaoMemory>();
                 services.AddScoped<IOrderDao, OrderDaoMemory>();
                 services.AddScoped<ICartDao, CartDaoMemory>();
+                services.AddScoped<ProductService, ProductService>();
+                services.AddScoped<CartService, CartService>();
+                services.AddScoped<OrderService, OrderService>();
             }
         }
 
