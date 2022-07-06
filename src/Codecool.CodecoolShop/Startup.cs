@@ -39,6 +39,7 @@ namespace Codecool.CodecoolShop
                 options.EnableSensitiveDataLogging();
             }
             );
+
             
             services.AddScoped<IProductDao, ProductDaoDb>();
             services.AddScoped<ISupplierDao, SupplierDaoDb>();
@@ -49,8 +50,21 @@ namespace Codecool.CodecoolShop
             services.AddScoped<CartService, CartService>();
             services.AddScoped<OrderService, OrderService>();
 
-            /*services.AddScoped<OrderService, OrderService>();*/
 
+            if (Configuration.GetValue<string>("Mode") == "sql")
+            {
+                services.AddScoped<IProductDao, ProductDaoDb>();
+                services.AddScoped<ISupplierDao, SupplierDaoDb>();
+                services.AddScoped<IProductCategoryDao, ProductCategoryDaoDb>();
+            }
+            else
+            {
+                services.AddScoped<IProductDao, ProductDaoMemory>();
+                services.AddScoped<ISupplierDao, SupplierDaoMemory>();
+                services.AddScoped<IProductCategoryDao, ProductCategoryDaoMemory>();
+                services.AddScoped<IOrderDao, OrderDaoMemory>();
+                services.AddScoped<ICartDao, CartDaoMemory>();
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,11 +94,20 @@ namespace Codecool.CodecoolShop
                     pattern: "{controller=Product}/{action=Index}/{id?}");
             });
 
-            
+            // odblokowaæ po zaimplementowaniu cartDaoDb oraz orderDaoDb i skasowaæ to co poni¿ej if
+
+            //if (Configuration.GetValue<string>("Mode") == "sql")
+            //{
+            //    var database = serviceProvider.GetService<CodecoolShopContext>();
+            //    database.Database.EnsureCreated();
+            //}
+            //else
+            //{
+            //    SetupInMemoryDatabases();
+            //}
             var database = serviceProvider.GetService<CodecoolShopContext>();
             database.Database.EnsureCreated();
             SetupInMemoryDatabases();
-
         }
 
 
