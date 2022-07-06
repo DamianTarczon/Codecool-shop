@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace Codecool.CodecoolShop
 {
@@ -92,10 +93,11 @@ namespace Codecool.CodecoolShop
             ProductCategory tablet = new ProductCategory {Name = "Tablet", Department = "Hardware", Description = "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display." };
             ProductCategory smartphone = new ProductCategory { Name = "Smartphone", Department = "Hardware", Description = "A mobile phone that is smart" };
             ProductCategory smartwatch = new ProductCategory { Name = "Smartwatch", Department = "Luxury goods", Description = "A watch with smart functions" };
-
+          
             productCategoryDataStore.Add(tablet);
             productCategoryDataStore.Add(smartwatch);
             productCategoryDataStore.Add(smartphone);
+            Log.Information("Product Category added");
 
 
             productDataStore.Add(new Product { Name = "Amazon Fire", DefaultPrice = 49.9m, Currency = "USD", Description = "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", ProductCategory = tablet, Supplier = amazon });
@@ -106,7 +108,7 @@ namespace Codecool.CodecoolShop
             productDataStore.Add(new Product { Name = "Xiaomi Redmi 2", DefaultPrice = 50.9m, Currency = "USD", Description = "Fantasic smartwatch with good price", ProductCategory = smartphone, Supplier = xiaomi });
             productDataStore.Add(new Product { Name = "Garmin Fenix 5", DefaultPrice = 60.9m, Currency = "USD", Description = "Smartwatch with a lot of functions", ProductCategory = smartwatch, Supplier = garmin });
             productDataStore.Add(new Product { Name = "Xiaomi Mi Band 6", DefaultPrice = 70.9m, Currency = "USD", Description = "The best smartwatch", ProductCategory = smartwatch, Supplier = xiaomi });
-
+            Log.Information("Products added");
         }
     }
 }
