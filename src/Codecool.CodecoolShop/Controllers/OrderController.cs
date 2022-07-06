@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Codecool.CodecoolShop.Daos.Implementations;
+using Codecool.CodecoolShop.Daos.Implementations.Database;
 using Codecool.CodecoolShop.Daos.Implementations.Memory;
 using Codecool.CodecoolShop.Models;
 using Codecool.CodecoolShop.Services;
@@ -14,14 +15,10 @@ namespace Codecool.CodecoolShop.Controllers
         private OrderService OrderService { get; set; }
         private CartService CartService { get; set; }
 
-        public OrderController()
+        public OrderController(OrderService orderService, CartService cartService)
         {
-            CartService = new CartService(
-                CartDaoMemory.GetInstance(),
-                ProductDaoMemory.GetInstance(),
-                ProductCategoryDaoMemory.GetInstance(),
-                SupplierDaoMemory.GetInstance());
-            OrderService = new OrderService(OrderDaoMemory.GetInstance());
+            CartService = cartService;
+            OrderService = orderService;
         }
         public IActionResult Index()
         {

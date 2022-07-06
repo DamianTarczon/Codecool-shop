@@ -4,6 +4,7 @@ using Codecool.CodecoolShop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Codecool.CodecoolShop.Migrations
 {
     [DbContext(typeof(CodecoolShopContext))]
-    partial class CodecoolShopContextModelSnapshot : ModelSnapshot
+    [Migration("20220706091847_AddedCartDetailsDbSet")]
+    partial class AddedCartDetailsDbSet
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,60 +61,6 @@ namespace Codecool.CodecoolShop.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("CartDetails");
-                });
-
-            modelBuilder.Entity("Codecool.CodecoolShop.Models.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PaymentStatus")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserDataId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserDataId");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("Codecool.CodecoolShop.Models.OrderDetails", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("NumberOfProduct")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("ProductPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("Codecool.CodecoolShop.Models.Product", b =>
@@ -335,54 +283,6 @@ namespace Codecool.CodecoolShop.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Codecool.CodecoolShop.Models.UserData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("Zipcode")
-                        .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserData");
-                });
-
             modelBuilder.Entity("Codecool.CodecoolShop.Models.CartDetail", b =>
                 {
                     b.HasOne("Codecool.CodecoolShop.Models.Cart", "Cart")
@@ -396,22 +296,6 @@ namespace Codecool.CodecoolShop.Migrations
                     b.Navigation("Cart");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Codecool.CodecoolShop.Models.Order", b =>
-                {
-                    b.HasOne("Codecool.CodecoolShop.Models.UserData", "UserData")
-                        .WithMany()
-                        .HasForeignKey("UserDataId");
-
-                    b.Navigation("UserData");
-                });
-
-            modelBuilder.Entity("Codecool.CodecoolShop.Models.OrderDetails", b =>
-                {
-                    b.HasOne("Codecool.CodecoolShop.Models.Order", null)
-                        .WithMany("ProductsDetails")
-                        .HasForeignKey("OrderId");
                 });
 
             modelBuilder.Entity("Codecool.CodecoolShop.Models.Product", b =>
@@ -436,11 +320,6 @@ namespace Codecool.CodecoolShop.Migrations
             modelBuilder.Entity("Codecool.CodecoolShop.Models.Cart", b =>
                 {
                     b.Navigation("CartDetails");
-                });
-
-            modelBuilder.Entity("Codecool.CodecoolShop.Models.Order", b =>
-                {
-                    b.Navigation("ProductsDetails");
                 });
 
             modelBuilder.Entity("Codecool.CodecoolShop.Models.ProductCategory", b =>

@@ -8,6 +8,7 @@ using Codecool.CodecoolShop.Daos.Implementations.Database;
 using Codecool.CodecoolShop.Daos.Implementations.Memory;
 using Codecool.CodecoolShop.Data;
 using Codecool.CodecoolShop.Models;
+using Codecool.CodecoolShop.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -38,11 +39,21 @@ namespace Codecool.CodecoolShop
                 options.EnableSensitiveDataLogging();
             }
             );
+
+            
+
             if (Configuration.GetValue<string>("Mode") == "sql")
             {
                 services.AddScoped<IProductDao, ProductDaoDb>();
                 services.AddScoped<ISupplierDao, SupplierDaoDb>();
                 services.AddScoped<IProductCategoryDao, ProductCategoryDaoDb>();
+                services.AddScoped<ICartDao, CartDaoDb>();
+                services.AddScoped<IOrderDao, OrderDaoDb>();
+                services.AddScoped<ProductService, ProductService>();
+                services.AddScoped<CartService, CartService>();
+                services.AddScoped<OrderService, OrderService>();
+
+
             }
             else
             {
@@ -51,6 +62,9 @@ namespace Codecool.CodecoolShop
                 services.AddScoped<IProductCategoryDao, ProductCategoryDaoMemory>();
                 services.AddScoped<IOrderDao, OrderDaoMemory>();
                 services.AddScoped<ICartDao, CartDaoMemory>();
+                services.AddScoped<ProductService, ProductService>();
+                services.AddScoped<CartService, CartService>();
+                services.AddScoped<OrderService, OrderService>();
             }
         }
 
