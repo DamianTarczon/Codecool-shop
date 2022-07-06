@@ -56,6 +56,7 @@ namespace Codecool.CodecoolShop
                 services.AddScoped<IProductDao, ProductDaoDb>();
                 services.AddScoped<ISupplierDao, SupplierDaoDb>();
                 services.AddScoped<IProductCategoryDao, ProductCategoryDaoDb>();
+                services.AddScoped<IOrderDao, OrderDaoDb>();
             }
             else
             {
