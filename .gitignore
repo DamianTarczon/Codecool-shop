@@ -94,6 +94,7 @@ modules.xml
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+src/Codecool.CodecoolShop/logs/serilog.json
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
