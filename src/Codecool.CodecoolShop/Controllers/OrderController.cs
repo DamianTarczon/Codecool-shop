@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Codecool.CodecoolShop.Daos.Implementations;
+using Codecool.CodecoolShop.Daos.Implementations.Memory;
 using Codecool.CodecoolShop.Models;
 using Codecool.CodecoolShop.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,11 @@ namespace Codecool.CodecoolShop.Controllers
         public OrderController()
         {
             CartService = new CartService(
-                CartDao.GetInstance(),
+                CartDaoMemory.GetInstance(),
                 ProductDaoMemory.GetInstance(),
                 ProductCategoryDaoMemory.GetInstance(),
                 SupplierDaoMemory.GetInstance());
-            OrderService = new OrderService(OrderDao.GetInstance());
+            OrderService = new OrderService(OrderDaoMemory.GetInstance());
         }
         public IActionResult Index()
         {

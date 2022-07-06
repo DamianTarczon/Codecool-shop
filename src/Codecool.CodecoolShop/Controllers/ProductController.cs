@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Codecool.CodecoolShop.Daos;
 using Codecool.CodecoolShop.Daos.Implementations;
+using Codecool.CodecoolShop.Daos.Implementations.Memory;
+using Codecool.CodecoolShop.Daos.Implementations.Database;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Codecool.CodecoolShop.Models;
@@ -26,11 +28,11 @@ namespace Codecool.CodecoolShop.Controllers
         {
             _logger = logger;
             ProductService = new ProductService(
-                ProductDaoMemory.GetInstance(),
+                new ProductDaoDb(),
                 ProductCategoryDaoMemory.GetInstance(),
                 SupplierDaoMemory.GetInstance());
             CartService = new CartService(
-                CartDao.GetInstance(),
+                CartDaoMemory.GetInstance(),
                 ProductDaoMemory.GetInstance(),
                 ProductCategoryDaoMemory.GetInstance(),
                 SupplierDaoMemory.GetInstance());
