@@ -14,7 +14,11 @@ namespace Codecool.CodecoolShop.Data
 
         public DbSet<Cart> Carts { get; set; }
 
+        public DbSet<CartDetail> CartDetails { get; set; }
+
         public DbSet<ProductCategory> ProductCategories { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
 
 
         public CodecoolShopContext(DbContextOptions options) : base(options)

@@ -13,6 +13,11 @@ namespace Codecool.CodecoolShop.Daos.Implementations.Memory
         {
         }
 
+        public Product GetWithCategoryAndSupplier(int id)
+        {
+            return Get(id);
+        }
+
         public static ProductDaoMemory GetInstance()
         {
             if (instance == null)

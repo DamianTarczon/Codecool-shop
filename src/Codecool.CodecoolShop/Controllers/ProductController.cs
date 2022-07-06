@@ -32,7 +32,7 @@ namespace Codecool.CodecoolShop.Controllers
                 productCategoryDao,
                 supplierDao);
             CartService = new CartService(
-                CartDaoMemory.GetInstance(),
+                new CartDaoDb(),
                 ProductDaoMemory.GetInstance(),
                 ProductCategoryDaoMemory.GetInstance(),
                 SupplierDaoMemory.GetInstance());

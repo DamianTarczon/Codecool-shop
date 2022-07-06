@@ -1,4 +1,4 @@
-﻿/*using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
@@ -19,15 +19,19 @@ namespace Codecool.CodecoolShop.Daos.Implementations.Database
             _context = new CodecoolShopContext(options);
         }
 
-        public void AddCart(Cart cart)
+        public Cart AddCart(Cart cart)
         {
             _context.Carts.Add(cart);
             _context.SaveChanges();
+            cart.Id = _context.Carts.OrderByDescending(x => x.Id).Select(x => x.Id).First();
+            return cart;
+
         }
 
         public Dictionary<Product, int> GetAll(int id)
         {
-            var productsList = _context.Carts.Where(x => x.Id == id).Select(x => x.CartDetails).FirstOrDefault();
+            var cart = _context.Carts.FirstOrDefault(x => x.Id == id);
+            var productsList = _context.CartDetails.Where(x => x.Cart == cart).Include(x=>x.Product);
             var productDict = new Dictionary<Product, int>();
             foreach (var cartDetail in productsList)
             {
@@ -41,22 +45,70 @@ namespace Codecool.CodecoolShop.Daos.Implementations.Database
             return productDict;
         }
 
-        public void IncreaseProduct(Product product, int id)
+        public Cart IncreaseProduct(Product product, int id)
+        {
+            var cart = _context.Carts.FirstOrDefault(x => x.Id == id);
+            var cartDetails = _context.CartDetails.Include(x => x.Product)
+                .Where(x => x.Cart == cart);
+            var productDb = _context.Products.FirstOrDefault(x => x.Id == product.Id);
+            var newCartDetails = new CartDetail() {Cart = cart, Product = productDb, Quantity = 1};
+            if (cartDetails.Select(x => x.Product).ToList().Contains(productDb))
+            {
+                _context.CartDetails.Include(x=>x.Cart).Where(x=>x.Cart==cart).Where(x => x.Product == productDb).FirstOrDefault().Quantity++;
+                _context.SaveChanges();
+            }
+            else
+            {
+                _context.CartDetails.Add(newCartDetails);
+                _context.SaveChanges();
+            }
+
+            return cart;
+
+        }
+
+        public Cart? DecreaseProduct(Product product, int Id)
         {
 
-            CartDetail cartDetail = new CartDetail() { Cart = _data, Product = product, Quantity = 1 };
-
-            if (_data.CartDetails.Count == 0)
+            var productDb = _context.Products.FirstOrDefault(x => x.Id == product.Id);
+            Cart cart = _context.Carts.FirstOrDefault(x => x.Id == Id);
+            var cartDetails = _context.Carts.Where(x=>x.Id==Id).SelectMany(x => x.CartDetails).Include(x=>x.Product).ToList();
+            foreach (var cartDetail in cartDetails)
             {
-                _data.CartDetails.Add(cartDetail);
+                if (cartDetail.Product == productDb)
+                {
+                    cartDetail.Quantity--;
+                    if (cartDetail.Quantity == 0)
+                    {
+                        cart = RemoveProduct(productDb, Id);
+                        return cart;
+                    }
+                    break;
+                }
             }
-            else if (_data.CartDetails.Where(x => x.Product == product).SingleOrDefault() == null)
-            { _data.CartDetails.Add(cartDetail); }
-            else
-                _data.CartDetails.Where(x => x.Product == product).SingleOrDefault().Quantity++;
+            _context.SaveChanges();
+            return cart;
+            
         }
-        public void DecreaseProduct(Product product);
-        public void RemoveProduct(Product product);
-        public void RemoveAllProducts();
+
+        public Cart RemoveProduct(Product product, int id)
+        {
+            var cart = _context.Carts.FirstOrDefault(x => x.Id == id);
+            var cartDetails = _context.CartDetails.Include(x => x.Product)
+                .Where(x => x.Cart == cart).ToList();
+            var productDb = _context.Products.FirstOrDefault(x => x.Id == product.Id);
+            _context.CartDetails.Remove(_context.CartDetails.Include(x => x.Cart).Include(x => x.Product)
+                .Where(x => x.Cart.Id == id).Where(x => x.Product == productDb).FirstOrDefault());
+            _context.SaveChanges();
+            return cart;
+
+        }
+
+        public Cart RemoveAllProducts(int id)
+        {
+            _context.CartDetails.Include(x=>x.Cart).Where(x=>x.Cart.Id==id).ToList().Clear();
+            _context.SaveChanges();
+            return _context.Carts.FirstOrDefault(x=>x.Id==id);
+        }
     }
-}*/
+}

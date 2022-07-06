@@ -42,7 +42,7 @@ namespace Codecool.CodecoolShop.Daos.Implementations.Memory
             return productDict;
         }
 
-        public void IncreaseProduct(Product product, int id)
+        public Cart IncreaseProduct(Product product, int id)
         {
             var cart = _data.Where(x => x.Id == id).FirstOrDefault();
             CartDetail cartDetail = new CartDetail() {Cart = cart, Id = id, Product = product, Quantity = 1 };
@@ -54,25 +54,30 @@ namespace Codecool.CodecoolShop.Daos.Implementations.Memory
             { cart.CartDetails.Add(cartDetail); }
             else
             cart.CartDetails.Where(x => x.Product == product).SingleOrDefault().Quantity++;
+
+            return cart;
         }
 
-        public void DecreaseProduct(Product product, int id)
+        public Cart DecreaseProduct(Product product, int id)
         {
             var cart = _data.Where(x => x.Id == id).FirstOrDefault();
             cart.CartDetails.Where(x => x.Product == product).FirstOrDefault().Quantity--;
+            return cart;
 
         }
 
-        public void RemoveProduct(Product product, int id)
+        public Cart RemoveProduct(Product product, int id)
         {
             var cart = _data.Where(x => x.Id == id).FirstOrDefault();
             cart.CartDetails.Remove(cart.CartDetails.Where(x => x.Product == product).FirstOrDefault());
+            return cart;
         }
 
-        public void RemoveAllProducts(int id)
+        public Cart RemoveAllProducts(int id)
         {
             var cart = _data.Where(x => x.Id == id).FirstOrDefault();
             cart.CartDetails.Clear();
+            return cart;
         }
     }
 }

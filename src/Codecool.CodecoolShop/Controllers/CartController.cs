@@ -15,17 +15,10 @@ namespace Codecool.CodecoolShop.Controllers
         private CartService CartService { get; set; }
         private ProductService ProductService { get; set; }
 
-        public CartController()
+        public CartController(CartService cartService, ProductService productService)
         {
-            CartService = new CartService(
-                CartDaoMemory.GetInstance(),
-                ProductDaoMemory.GetInstance(),
-                ProductCategoryDaoMemory.GetInstance(),
-                SupplierDaoMemory.GetInstance());
-            ProductService = new ProductService(
-                ProductDaoMemory.GetInstance(),
-                ProductCategoryDaoMemory.GetInstance(),
-                SupplierDaoMemory.GetInstance());
+            CartService = cartService;
+            ProductService = productService;
         }
         public IActionResult Index(string buttonType = "", int productId = 0)
         {
@@ -57,10 +50,10 @@ namespace Codecool.CodecoolShop.Controllers
             int supplierId;
             if (categoryOrSupplier != "category")
             {
-                supplierId = ProductService.GetProduct(productId).Supplier.Id;
+                supplierId = ProductService.GetProductWithCategory(productId).Supplier.Id;
                 return RedirectToAction("Index", "Product", new { id = supplierId, categoryOrSupplier = categoryOrSupplier });
             } 
-            else categoryId = ProductService.GetProduct(productId).ProductCategory.Id;
+            else categoryId = ProductService.GetProductWithCategory(productId).ProductCategory.Id;
             return RedirectToAction("Index", "Product", new { id = categoryId, categoryOrSupplier = categoryOrSupplier });
         }
     }

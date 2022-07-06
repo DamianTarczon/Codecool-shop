@@ -51,19 +51,19 @@ namespace Codecool.CodecoolShop.Services
         public void RemoveProduct(int productId)
         {
             var product = _productService.GetProduct(productId);
-            _cartDao.RemoveProduct(product, _cart.Id);
+            _cart=_cartDao.RemoveProduct(product, _cart.Id);
         }
 
         public void DecreaseProduct(int productId)
         {
             var product = _productService.GetProduct(productId);
-            _cartDao.DecreaseProduct(product, _cart.Id);
+            _cart = _cartDao.DecreaseProduct(product, _cart.Id);
             
         }
 
         public void RemoveAllProducts()
         {
-            _cartDao.RemoveAllProducts(_cart.Id);
+            _cart = _cartDao.RemoveAllProducts(_cart.Id);
         }
     }
 }
