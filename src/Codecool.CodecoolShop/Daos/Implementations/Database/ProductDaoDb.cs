@@ -10,10 +10,9 @@ namespace Codecool.CodecoolShop.Daos.Implementations.Database
     {
         private readonly CodecoolShopContext _context;
 
-        public ProductDaoDb()
+        public ProductDaoDb(CodecoolShopContext context)
         {
-            DbContextOptions<CodecoolShopContext> options = new DbContextOptions<CodecoolShopContext>();
-            _context = new CodecoolShopContext(options);
+            _context = context;
         }
         public void Add(Product product)
         {
@@ -39,12 +38,16 @@ namespace Codecool.CodecoolShop.Daos.Implementations.Database
 
         public IEnumerable<Product> GetBy(Supplier supplier)
         {
-            return _context.Products.Where(x => x.SupplierId == supplier.Id);
+            return _context.Products.Where(x => x.SupplierId == supplier.Id)
+                .Include(x => x.Supplier)
+                .Include(x => x.ProductCategory);
         }
 
         public IEnumerable<Product> GetBy(ProductCategory productCategory)
         {
-            return _context.Products.Where(x => x.ProductCategoryId == productCategory.Id);
+            return _context.Products.Where(x => x.ProductCategoryId == productCategory.Id)
+                .Include(x => x.ProductCategory)
+                .Include(x => x.Supplier);
         }
     }
 }
