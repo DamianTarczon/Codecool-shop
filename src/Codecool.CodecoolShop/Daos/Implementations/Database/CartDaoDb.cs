@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿/*using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
@@ -18,6 +18,13 @@ namespace Codecool.CodecoolShop.Daos.Implementations.Database
             DbContextOptions<CodecoolShopContext> options = new DbContextOptions<CodecoolShopContext>();
             _context = new CodecoolShopContext(options);
         }
+
+        public void AddCart(Cart cart)
+        {
+            _context.Carts.Add(cart);
+            _context.SaveChanges();
+        }
+
         public Dictionary<Product, int> GetAll(int id)
         {
             var productsList = _context.Carts.Where(x => x.Id == id).Select(x => x.CartDetails).FirstOrDefault();
@@ -52,4 +59,4 @@ namespace Codecool.CodecoolShop.Daos.Implementations.Database
         public void RemoveProduct(Product product);
         public void RemoveAllProducts();
     }
-}
+}*/

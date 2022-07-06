@@ -6,7 +6,7 @@ namespace Codecool.CodecoolShop.Daos.Implementations.Memory
 {
     public class CartDaoMemory : ICartDao
     {
-        private Cart _data = new Cart();
+        private List<Cart> _data = new List<Cart>();
         private static CartDaoMemory _instance = null;
 
         public static CartDaoMemory GetInstance()
@@ -19,11 +19,18 @@ namespace Codecool.CodecoolShop.Daos.Implementations.Memory
             return _instance;
         }
 
+        public Cart AddCart(Cart cart)
+        {
+            cart.Id = _data.Count + 1;
+            _data.Add(cart);
+            return cart;
+        }
 
-        public Dictionary<Product,int> GetAll()
+        public Dictionary<Product,int> GetAll(int id)
         {
             var productDict = new Dictionary<Product, int>();
-            foreach (var cartDetail in _data.CartDetails)
+            var cart = _data.Where(x => x.Id == id).FirstOrDefault();
+            foreach (var cartDetail in cart.CartDetails)
             {
                 if (productDict.ContainsKey(cartDetail.Product))
                 {
@@ -35,35 +42,37 @@ namespace Codecool.CodecoolShop.Daos.Implementations.Memory
             return productDict;
         }
 
-        public void IncreaseProduct(Product product)
+        public void IncreaseProduct(Product product, int id)
         {
-            int id = _data.CartDetails.Count + 1;
-            CartDetail cartDetail = new CartDetail() {Cart = _data, Id = id, Product = product, Quantity = 1 };
-
-            if (_data.CartDetails.Count == 0)
+            var cart = _data.Where(x => x.Id == id).FirstOrDefault();
+            CartDetail cartDetail = new CartDetail() {Cart = cart, Id = id, Product = product, Quantity = 1 };
+            if (cart.CartDetails.Count == 0)
             {
-                _data.CartDetails.Add(cartDetail);
+                cart.CartDetails.Add(cartDetail);
             }
-            else if (_data.CartDetails.Where(x => x.Product == product).SingleOrDefault()==null)
-            { _data.CartDetails.Add(cartDetail); }
+            else if (cart.CartDetails.Where(x => x.Product == product).SingleOrDefault()==null)
+            { cart.CartDetails.Add(cartDetail); }
             else
-            _data.CartDetails.Where(x => x.Product == product).SingleOrDefault().Quantity++;
+            cart.CartDetails.Where(x => x.Product == product).SingleOrDefault().Quantity++;
         }
 
-        public void DecreaseProduct(Product product)
+        public void DecreaseProduct(Product product, int id)
         {
-            _data.CartDetails.Where(x => x.Product == product).FirstOrDefault().Quantity--;
+            var cart = _data.Where(x => x.Id == id).FirstOrDefault();
+            cart.CartDetails.Where(x => x.Product == product).FirstOrDefault().Quantity--;
 
         }
 
-        public void RemoveProduct(Product product)
+        public void RemoveProduct(Product product, int id)
         {
-            _data.CartDetails.Remove(_data.CartDetails.Where(x => x.Product == product).FirstOrDefault());
+            var cart = _data.Where(x => x.Id == id).FirstOrDefault();
+            cart.CartDetails.Remove(cart.CartDetails.Where(x => x.Product == product).FirstOrDefault());
         }
 
-        public void RemoveAllProducts()
+        public void RemoveAllProducts(int id)
         {
-            _data.CartDetails.Clear();
+            var cart = _data.Where(x => x.Id == id).FirstOrDefault();
+            cart.CartDetails.Clear();
         }
     }
 }

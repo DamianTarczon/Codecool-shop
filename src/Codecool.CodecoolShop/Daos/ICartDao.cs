@@ -6,10 +6,12 @@ namespace Codecool.CodecoolShop.Daos
 {
     public interface ICartDao
     {
-        public Dictionary<Product, int> GetAll();
-        public void IncreaseProduct(Product product);
-        public void DecreaseProduct(Product product);
-        public void RemoveProduct(Product product);
-        public void RemoveAllProducts();
+        public Dictionary<Product, int> GetAll(int id);
+
+        public Cart AddCart(Cart cart);
+        public void IncreaseProduct(Product product, int id);
+        public void DecreaseProduct(Product product, int id);
+        public void RemoveProduct(Product product, int id);
+        public void RemoveAllProducts(int id);
     }
 }
