@@ -40,7 +40,6 @@ namespace Codecool.CodecoolShop
             }
             );
 
-            
             services.AddScoped<IProductDao, ProductDaoDb>();
             services.AddScoped<ISupplierDao, SupplierDaoDb>();
             services.AddScoped<IProductCategoryDao, ProductCategoryDaoDb>();
@@ -50,13 +49,15 @@ namespace Codecool.CodecoolShop
             services.AddScoped<CartService, CartService>();
             services.AddScoped<OrderService, OrderService>();
 
-
             if (Configuration.GetValue<string>("Mode") == "sql")
             {
                 services.AddScoped<IProductDao, ProductDaoDb>();
                 services.AddScoped<ISupplierDao, SupplierDaoDb>();
                 services.AddScoped<IProductCategoryDao, ProductCategoryDaoDb>();
+
                 services.AddScoped<IOrderDao, OrderDaoDb>();
+
+
             }
             else
             {
