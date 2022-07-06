@@ -15,11 +15,12 @@ namespace Codecool.CodecoolShop.Controllers
         private CartService CartService { get; set; }
         private ProductService ProductService { get; set; }
 
+        private static Cart _cart { get; set; }
 
         public CartController()
         {
             CartService = new CartService(
-                new CartDaoDatabase(),
+                new CartDaoDb(),
                 ProductDaoMemory.GetInstance(),
                 ProductCategoryDaoMemory.GetInstance(),
                 SupplierDaoMemory.GetInstance());
@@ -32,19 +33,24 @@ namespace Codecool.CodecoolShop.Controllers
         {
             if (buttonType == "delete")
             {
-                CartService.RemoveProduct(productId);
+                CartService.RemoveProduct(productId, _cart);
             }
             else if (buttonType == "increase")
             {
-                CartService.IncreaseProduct(productId);
+                if (_cart == null)
+                {
+                    _cart = new Cart();
+                }
+                CartService.IncreaseProduct(productId, _cart);
             }
             else if (buttonType == "decrease")
             {
-                CartService.DecreaseProduct(productId);
+                CartService.DecreaseProduct(productId, _cart);
             }
             else if (buttonType == "deleteAll")
             {
                 CartService.RemoveAllProducts();
+                _cart = null;
             }
             var card = CartService.GetCart();
             return View(card);
