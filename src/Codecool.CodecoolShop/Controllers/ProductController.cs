@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Codecool.CodecoolShop.Models;
 using Codecool.CodecoolShop.Services;
+using Serilog;
 
 namespace Codecool.CodecoolShop.Controllers
 {
@@ -35,6 +36,7 @@ namespace Codecool.CodecoolShop.Controllers
                 SupplierDaoMemory.GetInstance());
             ProductViewModel = new ProductViewModel();
             ProductViewModel.ProductsInCart = CartService.GetCart();
+            _logger.LogInformation("Test");
         }
 
         public IActionResult Index(int id = 1, string categoryOrSupplier = "category")
