@@ -50,10 +50,10 @@ namespace Codecool.CodecoolShop.Controllers
             int supplierId;
             if (categoryOrSupplier != "category")
             {
-                supplierId = ProductService.GetProductWithCategory(productId).Supplier.Id;
+                supplierId = ProductService.GetProductWithCategoryAndSupplier(productId).Supplier.Id;
                 return RedirectToAction("Index", "Product", new { id = supplierId, categoryOrSupplier = categoryOrSupplier });
             } 
-            else categoryId = ProductService.GetProductWithCategory(productId).ProductCategory.Id;
+            else categoryId = ProductService.GetProductWithCategoryAndSupplier(productId).ProductCategory.Id;
             return RedirectToAction("Index", "Product", new { id = categoryId, categoryOrSupplier = categoryOrSupplier });
         }
     }
