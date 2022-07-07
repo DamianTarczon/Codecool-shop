@@ -10,6 +10,8 @@ namespace Codecool.CodecoolShop.Daos.Implementations.Database
     {
         private readonly CodecoolShopContext _context;
 
+        public ProductDaoDb(){}
+
         public ProductDaoDb(CodecoolShopContext context)
         {
             _context = context;
