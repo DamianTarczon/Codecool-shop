@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Identity;
 
 namespace Codecool.CodecoolShop.Models
 {
@@ -14,6 +15,8 @@ namespace Codecool.CodecoolShop.Models
             get { return _createdDate; }
             private set{}
         }
+
+        public string UserEmail  { get; set; }
 
         public PaymentStatusEnum PaymentStatus { get; set; }
 

@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model UserRegisterDto
+<h4>Please enter your e-mail and password: </h4>
+<form asp-action="Login" method="post">
+    <div asp-validation-summary="All"></div>
+    <div>
+        <label asp-for="Email">E-mail: </label>
+        <input asp-for="Email" />
+    </div>
+    <div>
+        <label asp-for="Password">Password: </label>
+        <input asp-for="Password" />
+    </div>
+   
+    <button type="submit">Login</button>
+</form>

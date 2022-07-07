@@ -12,6 +12,7 @@ using Codecool.CodecoolShop.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -52,6 +53,8 @@ namespace Codecool.CodecoolShop
                 services.AddScoped<ProductService, ProductService>();
                 services.AddScoped<CartService, CartService>();
                 services.AddScoped<OrderService, OrderService>();
+                services.AddIdentity<IdentityUser, IdentityRole>(config=>config.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<CodecoolShopContext>().AddDefaultTokenProviders();
+                services.AddScoped<AccountService, AccountService>();
 
 
             }
@@ -65,7 +68,17 @@ namespace Codecool.CodecoolShop
                 services.AddScoped<ProductService, ProductService>();
                 services.AddScoped<CartService, CartService>();
                 services.AddScoped<OrderService, OrderService>();
+             
             }
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 5;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -87,6 +100,7 @@ namespace Codecool.CodecoolShop
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

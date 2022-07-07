@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model UserRegisterDto
+<form asp-action="Register" method="post">
+    <div asp-validation-summary="All"></div>
+    <div>
+        <label asp-for="UserName">Username: </label>
+        <input asp-for="UserName" />
+    </div>
+    <div>
+        <label asp-for="Email">E-mail: </label>
+        <input asp-for="Email" />
+    </div>
+    <div>
+        <label asp-for="Password">Password: </label>
+        <input asp-for="Password" />
+    </div>
+   
+    <button type="submit">Register</button>
+</form>

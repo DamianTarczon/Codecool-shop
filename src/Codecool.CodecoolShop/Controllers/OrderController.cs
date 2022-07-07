@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Codecool.CodecoolShop.Daos.Implementations;
 using Codecool.CodecoolShop.Daos.Implementations.Database;
 using Codecool.CodecoolShop.Daos.Implementations.Memory;
 using Codecool.CodecoolShop.Models;
 using Codecool.CodecoolShop.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Codecool.CodecoolShop.Controllers
@@ -14,9 +16,11 @@ namespace Codecool.CodecoolShop.Controllers
         private static Order _order;
         private OrderService OrderService { get; set; }
         private CartService CartService { get; set; }
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public OrderController(OrderService orderService, CartService cartService)
+        public OrderController(OrderService orderService, CartService cartService, UserManager<IdentityUser> userManager)
         {
+            _userManager = userManager;
             CartService = cartService;
             OrderService = orderService;
         }
@@ -34,11 +38,16 @@ namespace Codecool.CodecoolShop.Controllers
         }
 
         [HttpPost]
-        public IActionResult MakePayment(CreditCard creditCard)
+        public async Task<ActionResult> MakePayment(CreditCard creditCard)
         {
             if (ModelState.IsValid)
             {
                 _order.PaymentStatus = PaymentStatusEnum.Paid;
+                var user = await _userManager.GetUserAsync(User);
+                if (user != null)
+                {
+                    _order.UserEmail = user.Email;
+                }
                 OrderService.UpdateOrder(_order);
                 OrderService.SaveToJson(_order);
                 MailService.MailSender(_order);
@@ -68,7 +77,7 @@ namespace Codecool.CodecoolShop.Controllers
             if (ModelState.IsValid)
             {
                 _order = OrderService.MakeNewOrder(userData, CartService.GetCart());
-                OrderService.AddOrder(_order);
+                _order = OrderService.AddOrder(_order);
                 OrderService.SaveToJson(_order);
                 return RedirectToAction("MakePayment", "Order");
             }

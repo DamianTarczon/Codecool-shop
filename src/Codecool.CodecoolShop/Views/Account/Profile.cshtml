@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model ProfileView
+@{
+    
+    <h1>Hello @Model.User.UserName!</h1>
+};
+@{
+    foreach (var order in Model.Order)
+    {
+        <h1>Your order: <a href="@Url.Action("OrderDetails","Order", new {orderId = order.Id})">@order.Id</a></h1>
+    }
+}

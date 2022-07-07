@@ -23,9 +23,10 @@ namespace Codecool.CodecoolShop.Services
             return _orderDao.GetAll().Where(x => x.Id == Id).FirstOrDefault();
         }
 
-        public void AddOrder(Order order)
+        public Order AddOrder(Order order)
         {
-            _orderDao.AddOrder(order);
+            order = _orderDao.AddOrder(order);
+            return order;
         }
 
         public Order MakeNewOrder(UserData userData, Dictionary<Product,int> productsList)

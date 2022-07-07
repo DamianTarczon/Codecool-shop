@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Codecool.CodecoolShop.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Codecool.CodecoolShop.Daos.Implementations.Memory
 {
@@ -24,10 +25,16 @@ namespace Codecool.CodecoolShop.Daos.Implementations.Memory
             return _data;
         }
 
-        public void AddOrder(Order order)
+        public Order AddOrder(Order order)
         {
             order.Id = _data.Count + 1;
-           _data.Add(order); 
+           _data.Add(order);
+           return order;
+        }
+
+        public List<Order> FindOrdersByUser(IdentityUser user)
+        {
+            return new List<Order>();
         }
 
         public void UpdateOrder(Order order)

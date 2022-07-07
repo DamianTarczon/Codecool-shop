@@ -1,11 +1,12 @@
 ﻿using System;
 using Codecool.CodecoolShop.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Codecool.CodecoolShop.Data
 {
-    public class CodecoolShopContext : DbContext
+    public class CodecoolShopContext : IdentityDbContext
     {
         private const string ConnectionString = "Data Source=localhost;Database=codecoolshop;Integrated Security=true";
         public DbSet<Supplier> Suppliers { get; set; }
@@ -163,6 +164,7 @@ namespace Codecool.CodecoolShop.Data
                 GraminFenix5,
                 XiaomiMiBand6
             );
+            base.OnModelCreating(modelBuilder);
             /*modelBuilder.Entity<Cart>().*/
         }
     }
