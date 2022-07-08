@@ -10,6 +10,8 @@ namespace Codecool.CodecoolShop.Daos.Implementations.Database
     {
         private readonly CodecoolShopContext _context;
 
+        public ProductDaoDb(){}
+
         public ProductDaoDb(CodecoolShopContext context)
         {
             _context = context;
@@ -33,7 +35,10 @@ namespace Codecool.CodecoolShop.Daos.Implementations.Database
 
         public Product GetWithCategoryAndSupplier(int id)
         {
-            return _context.Products.Include(y => y.ProductCategory).Include(x=>x.Supplier).FirstOrDefault(x => x.Id == id);
+            return _context.Products
+                .Include(y => y.ProductCategory)
+                .Include(x=>x.Supplier)
+                .FirstOrDefault(x => x.Id == id);
         }
 
         public IEnumerable<Product> GetAll()

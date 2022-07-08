@@ -8,6 +8,8 @@ namespace Codecool.CodecoolShop.Daos.Implementations.Database
     public class ProductCategoryDaoDb : IProductCategoryDao
     {
         private readonly CodecoolShopContext _context;
+
+        public ProductCategoryDaoDb(){}
         public ProductCategoryDaoDb(CodecoolShopContext context)
         {
             _context = context;

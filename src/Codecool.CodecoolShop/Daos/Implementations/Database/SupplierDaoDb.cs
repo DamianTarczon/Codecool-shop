@@ -8,6 +8,8 @@ namespace Codecool.CodecoolShop.Daos.Implementations.Database
     public class SupplierDaoDb : ISupplierDao
     {
         private readonly CodecoolShopContext _context;
+
+        public SupplierDaoDb(){}
         public SupplierDaoDb(CodecoolShopContext context)
         {
             _context = context;
